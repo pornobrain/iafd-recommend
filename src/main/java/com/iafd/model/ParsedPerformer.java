@@ -1,12 +1,12 @@
 package com.iafd.model;
 
-import com.google.code.morphia.annotations.Entity;
-import com.google.code.morphia.annotations.Id;
-import com.google.code.morphia.annotations.Reference;
+import com.github.jmkgreen.morphia.annotations.Entity;
+import com.github.jmkgreen.morphia.annotations.Id;
+import com.github.jmkgreen.morphia.annotations.Reference;
 
 @Entity
 public class ParsedPerformer implements Performer {
-	@Id private String id;
+	@Id	private String id;
 	@Reference
 	private RawPerformer rawPerformer;
 

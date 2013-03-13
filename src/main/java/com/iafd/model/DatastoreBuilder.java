@@ -1,7 +1,8 @@
 package com.iafd.model;
 
-import com.google.code.morphia.Datastore;
-import com.google.code.morphia.Morphia;
+import com.github.jmkgreen.morphia.Datastore;
+import com.github.jmkgreen.morphia.Morphia;
+import com.github.jmkgreen.morphia.validation.ValidationExtension;
 import com.mongodb.Mongo;
 
 import java.net.UnknownHostException;
@@ -35,6 +36,7 @@ public class DatastoreBuilder {
 		Mongo mongo = this.mongo;
 		if(mongo == null)
 			mongo = createDefaultMongo();
+		new ValidationExtension(morphia);
 		return morphia.createDatastore(mongo, db);
 	}
 

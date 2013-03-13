@@ -1,6 +1,6 @@
 package com.iafd.performer.extract;
 
-import com.google.code.morphia.Datastore;
+import com.github.jmkgreen.morphia.Datastore;
 import com.google.common.util.concurrent.AbstractIdleService;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
@@ -53,7 +53,7 @@ public class PerformerExtractService extends AbstractIdleService {
 		this.proxyClient = proxyClient;
 		this.datastore = datastore;
 		iterator = datastore.find(RawPerformer.class).field("content").doesNotExist()
-			.disableCursorTimeout().iterator();
+			.iterator();
 	}
 
 	public static void main(String[] args) {

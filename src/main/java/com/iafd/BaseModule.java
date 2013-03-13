@@ -1,8 +1,6 @@
 package com.iafd;
 
-import com.google.code.morphia.Datastore;
-import com.google.code.morphia.logging.MorphiaLoggerFactory;
-import com.google.code.morphia.logging.slf4j.SLF4JLogrImplFactory;
+import com.github.jmkgreen.morphia.Datastore;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;

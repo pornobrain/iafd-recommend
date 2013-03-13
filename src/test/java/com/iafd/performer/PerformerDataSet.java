@@ -1,4 +1,4 @@
-package com.iafd.performer.extract;
+package com.iafd.performer;
 
 import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableList;
@@ -16,12 +16,14 @@ import java.util.List;
 
 import static com.google.common.base.Throwables.propagate;
 
-class DataSet {
-	static final List<RawPerformer> performers;
+public final class PerformerDataSet {
+	private PerformerDataSet() {}
+
+	public static final List<RawPerformer> DATASET;
 	static {
 		Reader r = resource("dataset.json");
 		List<RawPerformer> result = new Gson().fromJson(r, new TypeToken<List<RawPerformer>>() {}.getType());
-		performers = ImmutableList.copyOf(result);
+		DATASET = ImmutableList.copyOf(result);
 		try {
 			r.close();
 		} catch (IOException e) {
@@ -29,16 +31,16 @@ class DataSet {
 		}
 	}
 
-	static final RawPerformer TEST_PERFORMER = performers.get(0);
-	static final String TEST_CONTENT = TEST_PERFORMER.getContent();
-	static final Document TEST_DOCUMENT;
+	public static final RawPerformer PERFORMER = DATASET.get(0);
+	public static final String CONTENT = PERFORMER.getContent();
+	public static final Document DOCUMENT;
 	static {
-		TEST_DOCUMENT = Jsoup.parse(TEST_CONTENT, TEST_PERFORMER.getUrl());
+		DOCUMENT = Jsoup.parse(CONTENT, PERFORMER.getUrl());
 	}
 
 	private static Reader resource(String name) {
 		try {
-			return new InputStreamReader(DataSet.class.getResourceAsStream(name), Charsets.UTF_8.name());
+			return new InputStreamReader(PerformerDataSet.class.getResourceAsStream(name), Charsets.UTF_8.name());
 		} catch (UnsupportedEncodingException e) {
 			throw propagate(e);
 		}

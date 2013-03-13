@@ -1,7 +1,7 @@
 package com.iafd.model;
 
-import com.google.code.morphia.annotations.Entity;
-import com.google.code.morphia.annotations.Id;
+import com.github.jmkgreen.morphia.annotations.Entity;
+import com.github.jmkgreen.morphia.annotations.Id;
 import com.google.common.base.Objects;
 
 import static com.iafd.Constants.IAFD_ENDPOINT;
@@ -11,10 +11,11 @@ public class RawPerformer implements Performer {
 	private static String URL_FORMAT = IAFD_ENDPOINT + "person.rme/perfid=%s/gender=%s/%s.htm";
 	private static String ID_FORMAT = "%s:%s:%s";
 
-	@Id private	String id;
+	@Id	private	String id;
 	private String performerId;
 	private Gender gender;
 	private String slug;
+
 	private String content;
 
 	private RawPerformer() {
