@@ -8,7 +8,6 @@ import com.google.inject.Injector;
 import com.iafd.BaseModule;
 import com.iafd.http.proxy.ProxyClient;
 import com.iafd.http.proxy.ProxyClientResponse;
-import com.iafd.model.Performer;
 import com.iafd.model.RawPerformer;
 import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.Request;
@@ -84,7 +83,7 @@ public class PerformerExtractService extends AbstractIdleService {
 		proxyClient.submit(new PerformerExtractCtx(p, retry), request);
 	}
 
-	private void save(Performer performer) {
+	private void save(RawPerformer performer) {
 		datastore.save(performer);
 		if(queueSize.decrementAndGet() < BATCH_SIZE / 2)
 			batchSubmit();

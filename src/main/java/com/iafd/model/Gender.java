@@ -6,7 +6,7 @@ public enum Gender {
 	private Gender(String code) {
 		this.code = code;
 	}
-	String code() {
+	public String code() {
 		return code;
 	}
 }
