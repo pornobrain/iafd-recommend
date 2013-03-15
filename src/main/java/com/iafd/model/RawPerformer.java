@@ -2,7 +2,7 @@ package com.iafd.model;
 
 import com.google.common.base.Objects;
 
-public class RawPerformer extends Performer {
+public class RawPerformer extends BasePerformer {
 	private String content;
 
 	private RawPerformer() {}
