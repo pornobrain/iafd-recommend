@@ -60,11 +60,6 @@ public class ProxyClient<Context> extends AbstractSignal<ProxyClientResponse<Con
 			notifyEmit(new ProxyClientResponse<>(context, response));
 			return null;
 		}
-
-		@Override
-		public STATE onBodyPartReceived(HttpResponseBodyPart content) throws Exception {
-			return super.onBodyPartReceived(content);
-		}
 	}
 }
 

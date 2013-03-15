@@ -9,9 +9,8 @@ import static com.iafd.Constants.IAFD_ENDPOINT;
 @Entity(noClassnameStored = true)
 abstract class BasePerformer {
 	private static String URL_FORMAT = IAFD_ENDPOINT + "person.rme/perfid=%s/gender=%s/%s.htm";
-
 	@Id	@Embedded private PerformerId id;
-	String slug;
+	private String slug;
 
 	BasePerformer() {}
 

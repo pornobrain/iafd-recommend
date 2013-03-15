@@ -27,7 +27,6 @@ import static com.google.common.base.Throwables.propagate;
 public class PerformerExtractService extends AbstractIdleService {
 	private static final int BATCH_SIZE = 100;
 	private static final int RETRIES = 100;
-
 	private final AsyncHttpClient client;
 	private final ProxyClient<PerformerExtractCtx> proxyClient;
 	private final Datastore datastore;
@@ -68,6 +67,14 @@ public class PerformerExtractService extends AbstractIdleService {
 		service.awaitShutdown();
 	}
 
+	private static String content(Response response) {
+		try {
+			return response.getResponseBody("UTF-8");
+		} catch (IOException e) {
+			throw propagate(e);
+		}
+	}
+
 	private void handleResponse(PerformerExtractCtx ctx, Response response) throws IOException {
 		if(isValid(response)) {
 			ctx.performer.setContent(content(response));
@@ -104,18 +111,16 @@ public class PerformerExtractService extends AbstractIdleService {
 		return new PerformerValidator(content(response)).isValid();
 	}
 
-	private static String content(Response response) {
-		try {
-			return response.getResponseBody("UTF-8");
-		} catch (IOException e) {
-			throw propagate(e);
-		}
-	}
-
 	@Override
 	protected void startUp() throws Exception {
 		proxyClient.connect(slot);
 		batchSubmit();
+	}
+
+	@Override
+	protected void shutDown() throws Exception {
+		client.close();
+		latch.countDown();
 	}
 
 	private void batchSubmit() {
@@ -131,12 +136,6 @@ public class PerformerExtractService extends AbstractIdleService {
 		}
 		if(!iterator.hasNext() && queueSize.get() == 0)
 			stop();
-	}
-
-	@Override
-	protected void shutDown() throws Exception {
-		client.close();
-		latch.countDown();
 	}
 
 	public void awaitShutdown() {
